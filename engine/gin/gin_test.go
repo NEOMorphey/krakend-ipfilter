@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/luraproject/lura/config"
 	"github.com/luraproject/lura/logging"
-	ipfilter "github.com/xiachufang/krakend-ipfilter"
+	ipfilter "github.com/NEOMorphey/krakend-ipfilter"
 )
 
 func TestRegister(t *testing.T) {
