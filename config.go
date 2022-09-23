@@ -15,7 +15,7 @@ type Config struct {
 }
 
 // Namespace is ipfilter's config key in extra config
-const Namespace = "github_com/xiachufang/krakend-ipfilter"
+const Namespace = "github_com/NEOMorphey/krakend-ipfilter"
 
 // ParseConfig build ip filter's Config
 func ParseConfig(e config.ExtraConfig, logger logging.Logger) *Config {
