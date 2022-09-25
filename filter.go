@@ -8,6 +8,12 @@ import (
 	"github.com/yl2chen/cidranger"
 )
 
+// Config is config of ipfilter
+type Config struct {
+	Deny  []string
+	Allow []string
+}
+
 // IPFilter is a interface for allow or deny an ip
 type IPFilter interface {
 	Allow(ip string) bool
@@ -53,7 +59,7 @@ func newRanger(ips []string) cidranger.Ranger {
 }
 
 // NewIPFilter create a cidranger base ip filter
-func NewIPFilter(cfg *Config) IPFilter {
+func NewIPFilter(cfg Config) IPFilter {
 	// always allow and never deny
 	if cfg == nil || (len(cfg.Deny) == 0) {
 		return &NoopFilter{}
