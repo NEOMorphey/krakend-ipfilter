@@ -1,7 +1,6 @@
 package gin
 
 import (
-	"fmt"
 	"net/http"
 	"errors"
 	krakend "github.com/NEOMorphey/krakend-ipfilter/krakend"
@@ -23,7 +22,7 @@ func Register(cfg config.ServiceConfig, l logging.Logger, engine *gin.Engine) {
 		l.Warning("ipfilter middleware: ", err.Error())
 		return
 	}
-	d, err := ipfilter.New(detectorCfg)
+	d, err := ipfilter.NewIPFilter(detectorCfg)
 	if err != nil {
 		l.Warning("ipfilter middleware: unable to createt the LRU detector:", err.Error())
 		return
@@ -47,7 +46,7 @@ func New(hf krakendgin.HandlerFactory, l logging.Logger) krakendgin.HandlerFacto
 			return next
 		}
 
-		d, err := ipfilter.New(detectorCfg)
+		d, err := ipfilter.NewIPFilter(detectorCfg)
 		if err != nil {
 			l.Warning("ipfilter: unable to create the LRU detector:", err.Error())
 			return next
@@ -58,7 +57,8 @@ func New(hf krakendgin.HandlerFactory, l logging.Logger) krakendgin.HandlerFacto
 
 func middleware(f ipfilter.IPFilter) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if f(c.Request) {
+		ip := c.ClientIP()
+		if f.Deny(ip) {
 			c.AbortWithError(http.StatusForbidden, errIPRejected)
 			return
 		}

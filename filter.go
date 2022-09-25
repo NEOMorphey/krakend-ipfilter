@@ -61,7 +61,7 @@ func newRanger(ips []string) cidranger.Ranger {
 // NewIPFilter create a cidranger base ip filter
 func NewIPFilter(cfg Config) IPFilter {
 	// always allow and never deny
-	if cfg == nil || (len(cfg.Deny) == 0) {
+	if  (len(cfg.Deny) == 0) {
 		return &NoopFilter{}
 	}
 	return &CIDRFilter{
