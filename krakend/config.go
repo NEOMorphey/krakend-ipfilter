@@ -20,7 +20,7 @@ func ParseConfig(e config.ExtraConfig) (ipfilter.Config, error) {
 	res := ipfilter.Config{}
 	v, ok := e[Namespace].(map[string]interface{})
 	if !ok {
-		return nil
+		return res, ErrNoConfig
 	}
 
 	data, err := json.Marshal(v)
