@@ -13,7 +13,7 @@ import (
 // Register register a ip filter middleware at gin
 func Register(extraConfig config.ExtraConfig, logger logging.Logger, engine *gin.Engine) {
 	logPrefix := "[Service: Gin][IPFilter]"
-	filterCfg := ipfilter.ParseConfig(ExtraConfig, logger)
+	filterCfg := ipfilter.ParseConfig(extraConfig, logger)
 	if filterCfg == nil {
 		return
 	}
